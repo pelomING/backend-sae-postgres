@@ -1,8 +1,7 @@
 module.exports = (sequelize, Sequelize) => {
-    const EstadoVisita = sequelize.define("estado_visita", {
+    const EstadoPagoEstados = sequelize.define("estado_pago_estados", {
         id: {
             type: Sequelize.INTEGER,
-            autoIncrement: true,
             primaryKey: true
         },
         nombre: {
@@ -10,13 +9,12 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false,
             unique: true
           },
-        estado_obra_resultante: {
-            type: Sequelize.INTEGER,
-            allowNull: false,
+        comentario: {
+            type: Sequelize.STRING
         }
         },
         {
             schema: "obras",
         });
-    return EstadoVisita;
+    return EstadoPagoEstados;
   };

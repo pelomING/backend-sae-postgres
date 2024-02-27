@@ -5,6 +5,7 @@ const User = db.user;
 const VerificaAuth = db.verificaAuth;
 
 let verifyToken = (req, res, next) => {
+
   let token = req.session.token;
 
   if (!token) {

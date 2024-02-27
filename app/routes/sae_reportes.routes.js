@@ -363,4 +363,7 @@ module.exports = function(app) {
     */
     app.get("/api/reportes/v1/detallepxqhistorial", [authJwt.verifyToken, authJwt.isSistemaOrAdminSae], reportesController.detallePxQHistorial);
 
+    /* Devuelve el resumen de las operaciones de SAE*/
+    app.get("/api/reportes/v1/resumensae", [authJwt.verifyToken, authJwt.isSistemaOrAdminSae], reportesController.getResumenSae);
+
 }

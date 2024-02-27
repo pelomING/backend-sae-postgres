@@ -1,12 +1,12 @@
 module.exports = (sequelize, Sequelize) => {
-    const ObrasHistorialCambios = sequelize.define("obras_historial_cambios", {
+    const EstadoPagoHistorial = sequelize.define("estado_pago_historial", {
         id: {
             type: Sequelize.INTEGER,
             autoIncrement: true,
             primaryKey: true
         },
-        id_obra: {
-            type: Sequelize.INTEGER,
+        codigo_pelom: {
+            type: Sequelize.STRING,
             allowNull: false
           },
         fecha_hora: {
@@ -17,7 +17,7 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING,
             allowNull: false
         },
-        estado_obra: {
+        estado_edp: {
             type: Sequelize.INTEGER,
             allowNull: false
         },
@@ -31,5 +31,5 @@ module.exports = (sequelize, Sequelize) => {
         {
             schema: "obras",
         });
-    return ObrasHistorialCambios;
+    return EstadoPagoHistorial;
   };

@@ -21,11 +21,11 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING,
             allowNull: false
         },
-        gestor_cge: {
+        ito_mandante: {
             type: Sequelize.STRING,
             allowNull: false
         },
-        observaciones: {
+        observacion: {
             type: Sequelize.STRING,
             allowNull: false
         },

@@ -920,12 +920,41 @@
         }
       }
     },
+    "/api/obras/backoffice/general/v1/resumengeneral": {
+      "get": {
+        "tags": [
+          "Obras - General"
+        ],
+        "description": "Devuelve el resumen general de las operaciones Pelom",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/api/obras/backoffice/v1/allobras": {
       "get": {
         "tags": [
           "Obras - Backoffice - Obras"
         ],
         "description": "Devuelve todas las obras de la tabla de obras",
+        "parameters": [
+          {
+            "name": "vista",
+            "in": "query",
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -1303,6 +1332,122 @@
         }
       }
     },
+    "/api/obras/backoffice/v1/paralizaobra": {
+      "post": {
+        "tags": [
+          "Obras - Backoffice - Obras"
+        ],
+        "description": "Paraliza una obra, pasando el campo paralizada a true",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Datos para paralizar una obra",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id_obra": {
+                  "type": "number",
+                  "example": 45
+                },
+                "fecha_hora": {
+                  "type": "string",
+                  "example": "2024-01-05 15:30:00"
+                },
+                "motivo": {
+                  "type": "string",
+                  "example": "Motivo de la paralización (descripción corta)"
+                },
+                "observacion": {
+                  "type": "string",
+                  "example": "Observaciones detalladas de la paralización"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/obras/backoffice/v1/cierraobra": {
+      "post": {
+        "tags": [
+          "Obras - Backoffice - Obras"
+        ],
+        "description": "Cierre de una obra",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Datos para cerrar una obra",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id_obra": {
+                  "type": "number",
+                  "example": 45
+                },
+                "fecha_hora": {
+                  "type": "string",
+                  "example": "2024-01-05 15:30:00"
+                },
+                "supervisor_responsable": {
+                  "type": "string",
+                  "example": "Juan Perez"
+                },
+                "coordinador_responsable": {
+                  "type": "string",
+                  "example": "Juan Perez"
+                },
+                "ito_mandante": {
+                  "type": "string",
+                  "example": "Juan Perez"
+                },
+                "observacion": {
+                  "type": "string",
+                  "example": "Observaciones detalladas del cierre de obra"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/api/obras/backoffice/v1/obras/{id}": {
       "get": {
         "tags": [
@@ -1368,6 +1513,28 @@
           "Obras - Backoffice - Obras"
         ],
         "description": "Obtiene el código de obra en caso de que sea de tipo emergencia",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/obras/backoffice/v1/resumenobras": {
+      "get": {
+        "tags": [
+          "Obras - Backoffice - Obras"
+        ],
+        "description": "Obtiene el resumen informartivo de obras",
         "responses": {
           "200": {
             "description": "OK"
@@ -1668,32 +1835,42 @@
           {
             "name": "body",
             "in": "body",
+            "description": "Datos para crear la visita a terreno",
+            "required": false,
             "schema": {
               "type": "object",
               "properties": {
-                "fecha_visita": {
-                  "example": "any"
-                },
                 "id_obra": {
-                  "example": "any"
+                  "type": "number",
+                  "example": 1
+                },
+                "fecha_visita": {
+                  "type": "string",
+                  "example": "2023-10-25"
                 },
                 "direccion": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "direccion"
                 },
                 "persona_mandante": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "persona mandante"
                 },
                 "cargo_mandante": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "cargo mandante"
                 },
                 "persona_contratista": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "persona contratista"
                 },
                 "cargo_contratista": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "cargo contratista"
                 },
                 "observacion": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "observacion"
                 }
               }
             }
@@ -1734,35 +1911,38 @@
           {
             "name": "body",
             "in": "body",
+            "description": "Datos para actualizar visita terreno",
+            "required": false,
             "schema": {
               "type": "object",
               "properties": {
-                "id_obra": {
-                  "example": "any"
-                },
                 "fecha_visita": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "2023-10-25"
                 },
                 "direccion": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "direccion"
                 },
                 "persona_mandante": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "persona mandante"
                 },
                 "cargo_mandante": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "cargo mandante"
                 },
                 "persona_contratista": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "persona contratista"
                 },
                 "cargo_contratista": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "cargo contratista"
                 },
                 "observacion": {
-                  "example": "any"
-                },
-                "estado": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "observacion"
                 }
               }
             }
@@ -1771,6 +1951,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
           },
           "401": {
             "description": "Unauthorized"
@@ -2938,6 +3121,127 @@
           },
           "400": {
             "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/obras/backoffice/estadopago/v1/updateEstadoPagoGestionado/{id}": {
+      "put": {
+        "tags": [
+          "Obras - Backoffice - Estado de Pago"
+        ],
+        "description": "Actualiza los datos de un estado de pago gestionado para facturación",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Datos básicos de una obra",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "fecha_presentacion": {
+                  "type": "string",
+                  "example": "2023-10-25"
+                },
+                "semana": {
+                  "type": "number",
+                  "example": 1
+                },
+                "numero_oc": {
+                  "type": "string",
+                  "example": "123456"
+                },
+                "fecha_entrega_oc": {
+                  "type": "string",
+                  "example": "2023-10-25"
+                },
+                "fecha_subido_portal": {
+                  "type": "string",
+                  "example": "2023-10-25"
+                },
+                "folio_portal": {
+                  "type": "string",
+                  "example": "123456"
+                },
+                "fecha_hes": {
+                  "type": "string",
+                  "example": "2023-10-25"
+                },
+                "numero_hes": {
+                  "type": "string",
+                  "example": "123456"
+                },
+                "fecha_solicita_factura": {
+                  "type": "string",
+                  "example": "2023-10-25"
+                },
+                "responsable_solicitud": {
+                  "type": "string",
+                  "example": "responsable solicitud"
+                },
+                "numero_factura": {
+                  "type": "string",
+                  "example": "123456"
+                },
+                "fecha_factura": {
+                  "type": "string",
+                  "example": "2023-10-25"
+                },
+                "rango_dias": {
+                  "type": "string",
+                  "example": "30-60"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/obras/backoffice/estadopago/v1/allestadospagogestion": {
+      "get": {
+        "tags": [
+          "Obras - Backoffice - Estado de Pago"
+        ],
+        "description": "Lista todos los estados de pago gestionados",
+        "responses": {
+          "200": {
+            "description": "OK"
           },
           "401": {
             "description": "Unauthorized"
@@ -5704,6 +6008,28 @@
           },
           "400": {
             "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/reportes/v1/resumensae": {
+      "get": {
+        "tags": [
+          "SAE - Backoffice - Reportes"
+        ],
+        "description": "Devuelve el resumen de las operaciones de SAE",
+        "responses": {
+          "200": {
+            "description": "OK"
           },
           "401": {
             "description": "Unauthorized"

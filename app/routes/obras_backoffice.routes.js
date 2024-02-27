@@ -66,6 +66,8 @@ module.exports = function(app) {
 
     app.get("/api/obras/backoffice/general/v1/allrecargospordistancia", [authJwt.verifyToken], backofficeGeneralController.findAllRecargosDistancia);
 
+    app.get("/api/obras/backoffice/general/v1/resumengeneral", [authJwt.verifyToken], backofficeGeneralController.getResumenGeneral);
+
     
 
 }
@@ -84,6 +86,10 @@ module.exports = function(app) {
 
     app.delete("/api/obras/backoffice/v1/eliminaobra/:id", [authJwt.verifyToken, authJwt.deleteObrasBackofficeObras], backofficeObrasController.deleteObra);
 
+    app.post("/api/obras/backoffice/v1/paralizaobra", [authJwt.verifyToken, authJwt.createObrasBackofficeObras], backofficeObrasController.paralizaObra);
+
+    app.post("/api/obras/backoffice/v1/cierraobra", [authJwt.verifyToken, authJwt.createObrasBackofficeObras], backofficeObrasController.cierreObra);
+
 
     app.get("/api/obras/backoffice/v1/obras/:id", [authJwt.verifyToken, authJwt.readObrasBackofficeObras], backofficeObrasController.findObraById);
 
@@ -92,6 +98,9 @@ module.exports = function(app) {
 
     /* Obtiene el código de obra en caso de que sea de tipo emergencia*/
     app.get("/api/obras/backoffice/v1/codigodeobraemergencia", [authJwt.verifyToken, authJwt.readObrasBackofficeEstadoPago], backofficeObrasController.getCodigoObraEmergencia);
+
+    /* Obtiene el resumen informartivo de obras*/
+    app.get("/api/obras/backoffice/v1/resumenobras", [authJwt.verifyToken, authJwt.readObrasBackofficeObras], backofficeObrasController.getResumenObras);
 
 
 }
@@ -207,6 +216,14 @@ module.exports = function(app) {
     // Obtiene todos los datos para completar un informe de estado de pago historico por id del estado de pago
     //GET /api/obras/backoffice/estadopago/v1/historicoestadopagoporid
     app.get("/api/obras/backoffice/estadopago/v1/historicoestadopagoporid", [authJwt.verifyToken, authJwt.readObrasBackofficeEstadoPago], backofficeEstadopagoController.getHistoricoEstadosPagoByIdEstadoPago);
+
+    // Actualiza los datos de un estado de pago gestionado para facturación
+    // PUT /api/obras/backoffice/estadopago/v1/updateEstadoPagoGestionado
+    app.put("/api/obras/backoffice/estadopago/v1/updateEstadoPagoGestionado/:id", [authJwt.verifyToken, authJwt.readObrasBackofficeEstadoPago], backofficeEstadopagoController.updateEstadoPagoGestionado);
+
+    // Lista todos los estados de pago gestionados
+    // GET /api/obras/backoffice/estadopago/v1/allestadospagogestion
+    app.get("/api/obras/backoffice/estadopago/v1/allestadospagogestion", [authJwt.verifyToken, authJwt.readObrasBackofficeEstadoPago], backofficeEstadopagoController.allestadospagogestion);
 
 
 

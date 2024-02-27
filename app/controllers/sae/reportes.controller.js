@@ -3943,3 +3943,40 @@ exports.detallePxQHistorial = async (req, res) => {
         res.status(500).send(error);
       }
 }
+
+/*********************************************************************************** */
+/* Devuelve el resumen de las operaciones de SAE
+*/
+exports.getResumenSae = async (req, res) => {
+  /*  #swagger.tags = ['SAE - Backoffice - Reportes']
+    #swagger.description = 'Devuelve el resumen de las operaciones de SAE' */
+    try {
+
+      const respuesta = {
+        resumen_periodo: []
+      }
+  
+      
+      const { QueryTypes } = require('sequelize');
+      const sequelize = db.sequelize;
+  
+      let sql = "select periodo, count(id) as eventos from (SELECT re.id, date_part('year', fecha_hora) as anual, \
+      date_part('month', fecha_hora) as mes, m.nombre || '-' || date_part('year', fecha_hora)::varchar as periodo \
+      from sae.reporte_eventos re join _comun.meses m on date_part('month', re.fecha_hora) = m.id) as a \
+      group by periodo, anual, mes order by anual, mes";
+      
+      const resumenSaeEventosPeriodo = await sequelize.query(sql, { type: QueryTypes.SELECT });
+  
+      if (resumenSaeEventosPeriodo) {
+        respuesta.resumen_periodo = resumenSaeEventosPeriodo;
+      }else{
+        res.status(500).send("Error en la consulta (servidor backend)");
+        return;
+      }
+  
+      res.status(200).send(respuesta);
+  
+    } catch (error) {
+      res.status(500).send(error);
+    }
+}

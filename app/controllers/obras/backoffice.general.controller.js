@@ -427,3 +427,39 @@ exports.findAllOficinas = async (req, res) => {
     res.status(500).send(error);
   }
 }
+
+/*********************************************************************************** */
+/* Devuelve el resumen general de las operaciones Pelom
+*/
+exports.getResumenGeneral = async (req, res) => {
+  /*  #swagger.tags = ['Obras - General']
+    #swagger.description = 'Devuelve el resumen general de las operaciones Pelom' */
+    try {
+
+      const respuesta = {
+        resumen_servicios: [
+          {
+            "servicio": "SAE",
+            "produccion": "$ 45.784.234"
+          },
+          {
+            "servicio": "OBRAS",
+            "produccion": "$ 120.784.234"
+          },
+          {
+            "servicio": "PODA",
+            "produccion": "$ 12.784.234"
+          },
+          {
+            "servicio": "TLD",
+            "produccion": "$ 23.784.234"
+          }
+        ]
+      }
+  
+      res.status(200).send(respuesta);
+  
+    } catch (error) {
+      res.status(500).send(error);
+    }
+}
